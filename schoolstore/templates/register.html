@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Stoneridge Register{% endblock title %}
+{% block content %}
+
+<div class="container" style="width: 800px;">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="main-frame" style="width: 600px; margin: 5rem 0 0 6rem;">
+                <form action="register" method="POST">
+                    {% csrf_token %}
+                    <a href="{% url 'home' %}" class="h2 mb-0 text-success">Mariagiri</a><br><br>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <h3>Register</h3><br>
+                            <input type="text" name="username" id="username" class="form-control"
+                                   placeholder="Username">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="password" name="password" id="pass" class="form-control"
+                                   placeholder="Password">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="password" name="con_password" id="conpass" class="form-control"
+                                   placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-6" style="postion: relative; left: 35%;">
+                            <button class="btn btn-success" type="submit">Submit</button>
+                        </div>
+                    </div>
+                    {% for msg in messages %}
+                    <h4 style="text-align: center;">{{msg}}</h4>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Stoneridge-Student details{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-frame-form">
+                <div class="form-group" style="width: 1000px; position: relative; left: 5%; right: auto;">
+                    <form method="post" class="p-5 bg-white">
+                        {% csrf_token %}
+                        <h1 class="mb-0 site-logo" style="text-align: left; padding-bottom: 10px;">
+                            <a href="{% url 'home' %}" class="h2 mb-0 text-success">Mariagiri</a>
+                        </h1>
+                        <h3>FORM</h3><br>
+                        {{form.as_p}}
+                        <select id="subject" class="form-control">
+                            <option selected>Select Your Department</option>
+                        </select><br>
+                        <select id="topic" class="form-control">
+                            <option selected>Select Course</option>
+                        </select><br>
+                        <input type="checkbox" id="en" name="enquiry" value="For Enquiry">
+                        <label for="en"> For Enquiry</label><br>
+                        <input type="checkbox" id="po" name="placeorder" value="placeorder">
+                        <label for="po">Place Order</label><br>
+                        <input type="checkbox" id="return" name="return" value="return">
+                        <label for="return"> Return</label><br>
+                        <div class="row form-group">
+
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                            <br><br>
+                            <div class="content-block">
+                                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a></div>
+                            {% for m in messages %}
+                            <h4>{{m}} <span><a href="{% url 'home' %}">Goto Home</a></span></h4>
+                            {% endfor %}
+                        </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    var subjectObject = {
+      "Computer Science ": [
+        "BSc",
+        "B.Tech",
+        "B.E",
+        "M.Tech "
+      ],
+
+      "Commerce": [
+        "BMS",
+        "BCom",
+        "MCom"
+        ],
+
+       "Humanities": [
+        "Archaeology",
+        "Law and politics",
+        "Literature"
+        ],
+
+      "Biology": [
+        "B.VSc",
+        "BAMS ",
+        "BHMS "
+        ],
+
+    },
+    topicDefaultOption = new Option("Please select subject first", "");
+
+    window.onload = function() {
+      var subjectSel = document.getElementById("subject");
+      var topicSel = document.getElementById("topic");
+
+      for (var x in subjectObject) {
+        subjectSel.options[subjectSel.options.length] = new Option(x, x);
+      }
+      subjectSel.onchange = function() {
+        //empty Chapters- and Topics- dropdowns
+        topicSel.length = 0;
+        //chapterSel.length = 1; //not found :(
+
+        if(this.value === "") {
+          topicSel.options.add(topicDefaultOption);
+        } else {
+          //display correct values
+          for (var y in subjectObject[this.value]) {
+            topicSel.options.add(new Option(subjectObject[this.value][y], y));
+          }
+        }
+      }
+    }
+
+
+
+
+</script>
+{% endblock %}
